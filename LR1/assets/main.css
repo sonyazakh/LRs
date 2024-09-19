@@ -1,0 +1,54 @@
+.header::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 44px;
+  height: 76px;
+  background-image: url("pics/pepper.svg");
+  background-repeat: no-repeat;
+  transition: top .4s ease-in-out;
+}
+.nav-link{
+  color: white;
+}
+
+.nav-link:hover
+{
+  color: greenyellow;
+}
+
+.nav-link:visited{
+  color: white;
+}
+
+.dropdown-item{
+  color: gray;
+}
+
+.dropdown-item:hover{
+  color: greenyellow;
+}
+
+.breadcrumb-item{
+  font-size: 15px;
+}
+
+.footer-link
+{
+  color: black
+}
+.footer-link:hover{
+  color: greenyellow;
+}
+
+.contact-link
+{
+  font-size: 16px;
+  color: gray;
+}
+.contact-link:hover{
+  color: greenyellow;
+}
+
+.space { margin:0; padding:0; height:100px; }
