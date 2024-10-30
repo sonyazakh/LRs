@@ -2,11 +2,26 @@
 function remove_repeated_punctuation($text) {
     $text = preg_replace('/\.{3,}/u', '…', $text);
     $text = preg_replace('/\.{2}/u', '.', $text);
-    $text = preg_replace('/([!?])\1{2,}/u', '\$1\$1\$1', $text);
-    $text = preg_replace('/([,:\-;])\1+/u', '\$1', $text);
-    $text = preg_replace('/([(){}\[\]«»])\1+/u', '\$1', $text);
+    $text = preg_replace('/[!]+/u', '!!!', $text);
+    $text = preg_replace('/[?]+/u', '???', $text);
+    $text = preg_replace('/[,\-]+/u', ',', $text);
+    $text = preg_replace('/[:\-]+/u', ':', $text);
+    $text = preg_replace('/[;\-]+/u', ';', $text);
+
+    $text = preg_replace('/\{+/', '{', $text);
+    $text = preg_replace('/\}+/', '}', $text);
+
+    $text = preg_replace('/\(+/', '(', $text);
+    $text = preg_replace('/\)+/', ')', $text);
+
+    $text = preg_replace('/\[++/', '[', $text);
+    $text = preg_replace('/\]+/', ']', $text);
+
+    $text = preg_replace('/«+/', '«', $text);
+    $text = preg_replace('/»+/', '»', $text);
     return $text;
 }
+
 
 function generate_toc($text) {
     $pattern = '/<h([1-3])[^>]*>(.*?)<\/h[1-3]>/iu';
@@ -23,7 +38,7 @@ function generate_toc($text) {
         $id = 'header-' . $key;
         $output_text = str_replace($header, "<h{$level} id=\"{$id}\">{$matches[2][$key]}</h{$level}>", $output_text);
 
-        // Создание вложенного списка для оглавления
+
         $indentation = str_repeat('&nbsp;', ($level - 1) * 4);
         $toc .= "<li style='margin-left: " . (($level - 1) * 20) . "px;'><a href='#{$id}'>{$indentation}" . htmlspecialchars($title) . "</a></li>";
     }
@@ -39,7 +54,7 @@ function filter_prohibited_words($text) {
 
     foreach ($prohibited_words as $word) {
         $pattern = '/\b' . preg_quote($word, '/') . '\w*/iu';
-        $replacement = str_repeat('#', mb_strlen($word));
+        $replacement = str_repeat('#', mb_strlen($word)); 
         $text = preg_replace($pattern, $replacement, $text);
     }
 
